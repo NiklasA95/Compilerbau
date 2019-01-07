@@ -1,45 +1,47 @@
 %{
 #include <stdio.h>
 #inlcude "y.tab.h"
+void yyerror(char *);
 %} 
 
 IDENTIFIER [a-zA-Z][a-zA-Z0-9]*
-DIGIT [0-9]
+DIGIT [0-9]+
 COMMENT [(][*]([^*]|[*]+[^*)])*[*]+[)] 
 
 %%
 {COMMENT}	{;}
-"CONST"	{return t_const;}
-"VAR"	{return t_var;}
-"PROCEDURE"	{return t_procedure;}
-":="	{return t_assign;}
-"CALL"	{return t_call;}
-"?"	{return t_read;}
-"!"		{return t_write;}
-"BEGIN"	{return t_begin;}
-"END"	{return t_end;}
-"IF"	{return t_if;}
-"THEN"	{return t_then;}
-"WHILE"	{return t_while;}
-"DO"	{return t_do;}
-"ODD"	{return t_odd;}
-";"	{return t_semicolon;}
-","		{return t_comma;}
-"+"	{return t_add;}
-"-"	{return t_sub;}
-"*"	{return t_mult;}
-"/"	{return t_div;}
-"="	{return t_equals;} 
-"#"	{return t_unequal;}
-"<"	{return t_smaller;}
-"<="	{return t_smaller_equ;}
-">"	{return t_bigger;}
-">="	{return t_bigger_equ;}
-"("	{return t_bracket_open;}
-")"	{return t_bracket_close;}
-{DIGIT}*	{yylval = atoi(yytext); return t_digit;}
-{IDENTIFIER}*		{ yylval = yytext[0] - 'a'; return t_identifier;}
-\t	{;}
+"CONST"	{return T_CONST;}
+"VAR"	{return T_VAR;}
+"PROCEDURE"	{return T_PROCEDURE;}
+":="	{return T_ASSIGN;}
+"CALL"	{return T_CALL;}
+"?"	{return T_READ;}
+"!"		{return T_WRITE;}
+"BEGIN"	{return T_BEGIN;}
+"END"	{return T_END;}
+"IF"	{return T_IF;}
+"THEN"	{return T_THEN;}
+"WHILE"	{return T_WHILE;}
+"DO"	{return T_DO;}
+"ODD"	{return T_ODD;}
+";"	{return T_SEMICOLON;}
+","		{return T_COMMA;}
+"."	{return T_DOT;}
+"+"	{return T_ADD;}
+"-"	{return T_SUB;}
+"*"	{return T_MULT;}
+"/"	{return T_DIV;}
+"="	{return T_EQUAL;} 
+"#"	{return T_UNEQUAL;}
+"<"	{return T_SMALLER;}
+"<="	{return T_SMALLER_EQU;}
+">"	{return T_BIGGER;}
+">="	{return T_BIGGER_EQU;}
+"("	{return T_BRACKET_OPEN;}
+")"	{return T_BRACKET_CLOSE;}
+{DIGIT}*	{yylval = atoi(yytext); return T_DIGIT;}
+{IDENTIFIER}*		{ yylval = yytext[0] - 'a'; return T_IDENTIFIER;}
+[\t\f \r]	{;}
 .	{ yyerror("Nicht zulässiger Token"); }
 %%     
 
