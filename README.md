@@ -15,5 +15,10 @@ All notable changes to this project will be documented in this file.
 - rough sketch of pl0-parser
 - updated pl0-compiler
 
+### [0.1.2] - 2019-02-25
+#### Updated
+- pl0-parser
+
+
 
 
