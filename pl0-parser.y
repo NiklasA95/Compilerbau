@@ -64,15 +64,22 @@ PROCDECL	:	t_procedure t_ident t_semicolon BLOCK t_semicolon PROCDECL
 		|	EPSILON
 		;
 					
-STATEMENT	:	t_ident t_assign EXPRESSION 
-		|	t_call t_ident
+STATEMENT	:	t_ident t_assign EXPRESSION 		
+	  							{$$ = $3;}
+		|	t_call t_ident				
+								
 		|	t_read t_ident
+								{scanf("%i", $2);}
 		|	t_write EXPRESSION
-		|	t_begin STATEMENT MULTSTATEMENTS t_end
+								{printf("%i", $2);}
+		|	t_begin STATEMENT MULTSTATEMENTS t_end	
 		|	t_if CONDITION t_then STATEMENT
 								{if($2) printf("True");
 									else printf("False");} 
-		|	t_while CONDITION t_do STATEMENT
+		|	t_while CONDITION t_do STATEMENT	
+								{/*while($2) {
+									 
+								}*/}
 		|	EPSILON
 		;
 					
@@ -80,52 +87,142 @@ MULTSTATEMENTS	:	t_semicolon STATEMENT MULTSTATEMENTS
 		|	EPSILON
 		;
 
-CONDITION	:	t_odd EXPRESSION 
+CONDITION	:	t_odd EXPRESSION 		{if ($2 % 2) != 0 {
+								printf("Odd");
+								$$ = 1;
+							}
+							else {
+								printf("NotOdd");
+								$$ = 0;
+							}}
+
 		|	EXPRESSION t_equal EXPRESSION
-							{if($1 == $3) printf("Equal");
-								else printf("Unequal");}
+							{if ($1 == $3) {
+								printf("Equal");
+								$$ = 1;
+							}
+							else {
+								printf("Unequal");
+								$$ = 0;
+							}}
+		|	EXPRESSION t_unequal EXPRESSION
+							{if ($1 != $3) {
+								printf("Unequal");
+								$$ = 1;
+							}
+							else {
+								printf("NotUnequal");
+								$$ = 0;
+							}}
+
 		|	EXPRESSION t_smaller Expression	
-							{if($1 < $3) printf("IsSmaller");
-								else printf("IsNotSmaller");}
+							{if ($1 < $3) {
+								printf("IsSmaller");
+								$$ = 1;
+							}
+							else {
+								printf("IsNotSmaller");
+								$$ = 0;
+							}}
+
 		|	EXPRESSION t_smaller_equ Expression	
-							{if($1 <= $3) printf("IsSmallerEqu");
-								else printf("IsNotSmallerEqu");}
+							{if ($1 <= $3) {
+								printf("IsSmallerEqu");
+								$$ = 1;
+							}
+							else {
+								printf("IsNotSmallerEqu");
+								$$ = 0;
+							}}
+
 		|	EXPRESSION t_bigger Expression	
-							{if($1 > $3) printf("IsBigger");
-								else printf("IsNotBigger");}
+							{if ($1 > $3) {
+								printf("IsBigger");
+								$$ = 1;
+							}
+							else {
+								printf("IsNotBigger");
+								$$ = 0;
+							}}
+
 		|	EXPRESSION t_bigger_equ Expression	
-							{if($1 >= $3) printf("IsBiggerEqu");
-								else printf("IsNotBiggerEqu");}
+							{if ($1 >= $3) {
+								printf("IsBiggerEqu");
+								$$ = 1;
+							}
+							else {
+								printf("IsNotBiggerEqu");
+								$$ = 0;
+							}}
 		;
 						
-EXPRESSION	:	SIGN TERM t_plus TERM
-		|	SIGN TERM t_plus TERM
-		|	SIGN TERM t_minus TERM
+EXPRESSION	:	SIGN TERM t_plus MULTTERM
+	   					{if($1) {
+							$$ = (-1 * $2) + $4;
+							printf("%i + %i = %i", -1*$2, $4, $$);
+						}
+						else {
+							$$ = $2 + $4;
+							printf("%i + %i = %i", $2, $4, $$);
+						}}
 
+		|	SIGN TERM t_minus MULTTERM
+						{if($1) {
+							$$ = (-1 * $2) - $4;
+							printf("%i - %i = %i", -1*$2, $4, $$);
+						}
+						else {
+							$$ = $2 - $4;	
+							printf("%i - %i = %i", $2, $4, $$);
+						}}
+		|	SIGN TERM
+						{if($1) {
+							$$ = -1 * $2;
+							printf("%i", $$);
+						}
+						else {
+							$$ = $2;	
+							printf("%i", $$);
+						}}
 		;
 
 SIGN		:	t_plus
+      				{$$ = 0;
+				printf("+SIGN");}
 		|	t_minus
+				{$$ = 1;
+				printf("-SIGN");}
 		|	EPSILON
+				{$$ = 0;
+				printf("NOSIGN");}
 		;
 		
-MULTTERM	:			|	t_minus TERM
-		|	t_plus TERM MULTTERM
-		|	t_minus TERM MULTTERM
-		|	EPSILON
+MULTTERM	:
+		|	TERM t_plus MULTTERM
+						{$$ = $1 + $3;
+						printf("%i + %i = %i", $1, $3, $$);}
+	 
+	 	|	TERM t_minus MULTTERM
+						{$$ = $1 - $3;
+						printf("%i - %i = %i", $1, $3, $$);}
+		|	TERM
 		;
 
-TERM		:	FACTOR MULTFACTOR
-		;
-			
-MULTFACTOR	:	t_mult FACTOR MULTFACTOR
-		|	t_div FACTOR MULTFACTOR
-		|	EPSILON
+TERM		:	FACTOR t_mult TERM
+      						{$$ = $1 * $3;
+						printf("%i * %i = %i", $1, $3, $$);}
+	
+      		|	FACTOR t_div TERM
+						{$$ = $1 / $3;
+						printf("%i / %i = %i", $1, $3, $$);}
+
+		|	FACTOR
 		;
 						
 FACTOR		:	t_ident
 		|	t_digit
 		|	t_bracket_open EXPRESSION t_bracket_close
+									{$$ = $1;}
 		;
 				
 EPSILON	:	;			
