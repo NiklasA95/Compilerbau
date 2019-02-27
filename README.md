@@ -11,6 +11,10 @@ Repository for the "Compilerbau" lecture of Prof. Winfried Bantel
 ## Changelog
 All notable changes to this project will be documented in this file.
 
+### [0.6.0] - 2019-02-27
+#### Added
+- scripts for unix and windows running LEX and YACC and starting `pl0-parser.exe`
+
 ### [0.5.1] - 2019-02-27
 #### Fixed
 - missing `;` (pl0-parser, line 42)
