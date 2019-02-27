@@ -39,7 +39,7 @@ void yyerror(char *);
 %%
 
 PROGRAMM	:	BLOCK t_dot
-					{printf("Grammatik akzeptiert. Parsen beendet!\n")}
+					{printf("Grammatik akzeptiert. Parsen beendet!\n");}
 		;
 			
 BLOCK		:	t_const t_ident t_equal t_digit CONSTINIT t_semicolon t_var t_ident VARDECL t_semicolon PROCDECL STATEMENT	
@@ -72,7 +72,7 @@ STATEMENT	:	t_ident t_assign EXPRESSION
 		|	t_call t_ident				
 								
 		|	t_read t_ident
-								{scanf("%i", $2);}
+								{scanf("%i", &$2);}
 		|	t_write EXPRESSION
 								{printf("%i\n", $2);}
 		|	t_begin STATEMENT MULTSTATEMENTS t_end	
