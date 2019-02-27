@@ -1,0 +1,26 @@
+(*Kommentar*)
+
+VAR n, f;
+PROCEDURE fakultaet;
+	BEGIN
+		!n;
+		IF n > 0 THEN
+		BEGIN	
+			DEBUG;
+			f := f* n;
+			n := n - 1;
+			CALL fakultaet;
+			n := n + 1;
+			DEBUG;
+		END;
+	END;
+	
+	BEGIN
+		?n;
+		f := 1;
+				DEBUG;
+		CALL fakultaet;
+				DEBUG;
+		
+		!f;
+	END.

@@ -11,6 +11,10 @@ Repository for the "Compilerbau" lecture of Prof. Winfried Bantel
 ## Changelog
 All notable changes to this project will be documented in this file.
 
+### [0.7.1] - 2019-02-28
+#### Added
+- more examples
+
 ### [0.7.0] - 2019-02-28
 #### Added
 - 3 example programs from Wikipedia
