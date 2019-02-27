@@ -1,8 +1,7 @@
 %{
 #define YYSTYPE int 
 #include <stdio.h>
-#include <y.tab.h>
-extern int yylval;
+#include "pl0-parser.tab.h"
 void yyerror(char *);
 %} 
 
@@ -42,17 +41,13 @@ COMMENT [(][*]([^*]|[*]+[^*)])*[*]+[)]
 "("		{return t_bracket_open;}
 ")"		{return t_bracket_close;}
 {DIGIT}*	{yylval = atoi(yytext); return t_digit;}
-{IDENTIFIER}*	{ yylval = yytext[0] - 'a'; return t_ident;}
+{IDENTIFIER}*	{/*yylval.string=strdup(yytext);*/ return t_ident;}
 [ \t\f\r]	{;}
 .		{ yyerror("Nicht zulaessiger Token"); }
 %%     
 
-int yywrap(){} 
+
        
-int main(int argc, char*argv[]) 
-{ 
-	yyin= fopen("fakultaet.pl0","r");
-	yylex();  
-  
-	return 0; 
-} 
+
+
+

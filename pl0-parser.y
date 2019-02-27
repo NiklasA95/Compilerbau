@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+#include "lex.yy.c"
 int yylex(void);
 void yyerror(char *);
 %}
@@ -37,30 +38,32 @@ void yyerror(char *);
 %token t_ident
 %%
 
-PROGRAMM	:	BLOCK
-		|	t_dot
-				{printf("Parsen beendet!\n")}
+PROGRAMM	:	BLOCK t_dot
+					{printf("Grammatik akzeptiert. Parsen beendet!\n")}
 		;
 			
-BLOCK		:	t_const t_ident t_equal t_digit CONSTINIT t_semicolon t_var t_ident VARDECL t_semicolon PROCDECL STATEMENT
-		|	t_const t_ident t_equal t_digit CONSTINIT t_semicolon t_var t_ident VARDECL t_semicolon STATEMENT
-		|	t_const t_ident t_equal t_digit CONSTINIT t_semicolon PROCDECL STATEMENT
+BLOCK		:	t_const t_ident t_equal t_digit CONSTINIT t_semicolon t_var t_ident VARDECL t_semicolon PROCDECL STATEMENT	
+       																	{printf("Const Initialisierung, Var Deklaration\n");}
+       		|	t_const t_ident t_equal t_digit CONSTINIT t_semicolon PROCDECL STATEMENT
+																	{printf("Const Initialisierung\n");}
 		|	t_var t_ident VARDECL t_semicolon PROCDECL STATEMENT
-		|	t_var t_ident VARDECL t_semicolon STATEMENT
-		|	t_const t_ident t_equal t_digit CONSTINIT t_semicolon STATEMENT
+																	{printf("Var Deklaration\n");}
 		|	PROCDECL STATEMENT
-		|	STATEMENT
+																	{printf("Statement\n");}											
 		;
 
 CONSTINIT	:	t_comma t_ident t_equal t_digit CONSTINIT
+	  								{printf("Const Initialisierung\n");}
 		|	EPSILON
 		;
 				
 VARDECL		:	t_comma t_ident VARDECL
+	 					{printf("Var Deklaration\n");}
 		|	EPSILON
 		;
 				
 PROCDECL	:	t_procedure t_ident t_semicolon BLOCK t_semicolon PROCDECL
+	 										{printf("Prozess Deklaration\n");}
 		|	EPSILON
 		;
 					
@@ -71,11 +74,11 @@ STATEMENT	:	t_ident t_assign EXPRESSION
 		|	t_read t_ident
 								{scanf("%i", $2);}
 		|	t_write EXPRESSION
-								{printf("%i", $2);}
+								{printf("%i\n", $2);}
 		|	t_begin STATEMENT MULTSTATEMENTS t_end	
 		|	t_if CONDITION t_then STATEMENT
-								{if($2) printf("True");
-									else printf("False");} 
+								{if($2) printf("True\n");
+									else printf("False\n");} 
 		|	t_while CONDITION t_do STATEMENT	
 								{/*while($2) {
 									 
@@ -84,156 +87,170 @@ STATEMENT	:	t_ident t_assign EXPRESSION
 		;
 					
 MULTSTATEMENTS	:	t_semicolon STATEMENT MULTSTATEMENTS
+	       							{printf("Mehrere Beginn End Statements\n");}
 		|	EPSILON
+								{printf("Einzelnes Begin End Statement\n");}
 		;
 
-CONDITION	:	t_odd EXPRESSION 		{if ($2 % 2) != 0 {
-								printf("Odd");
+CONDITION	:	t_odd EXPRESSION 		{if (($2 % 2) != 0) {
+								printf("Odd\n");
 								$$ = 1;
 							}
 							else {
-								printf("NotOdd");
+								printf("NotOdd\n");
 								$$ = 0;
 							}}
 
 		|	EXPRESSION t_equal EXPRESSION
 							{if ($1 == $3) {
-								printf("Equal");
+								printf("Equal\n");
 								$$ = 1;
 							}
 							else {
-								printf("Unequal");
+								printf("Unequal\n");
 								$$ = 0;
 							}}
+
 		|	EXPRESSION t_unequal EXPRESSION
 							{if ($1 != $3) {
-								printf("Unequal");
+								printf("Unequal\n");
 								$$ = 1;
 							}
 							else {
-								printf("NotUnequal");
+								printf("NotUnequal\n");
 								$$ = 0;
 							}}
 
-		|	EXPRESSION t_smaller Expression	
+		|	EXPRESSION t_smaller EXPRESSION	
 							{if ($1 < $3) {
-								printf("IsSmaller");
+								printf("IsSmaller\n");
 								$$ = 1;
 							}
 							else {
-								printf("IsNotSmaller");
+								printf("IsNotSmaller\n");
 								$$ = 0;
 							}}
 
-		|	EXPRESSION t_smaller_equ Expression	
+		|	EXPRESSION t_smaller_equ EXPRESSION	
 							{if ($1 <= $3) {
-								printf("IsSmallerEqu");
+								printf("IsSmallerEqu\n");
 								$$ = 1;
 							}
 							else {
-								printf("IsNotSmallerEqu");
+								printf("IsNotSmallerEqu\n");
 								$$ = 0;
 							}}
 
-		|	EXPRESSION t_bigger Expression	
+		|	EXPRESSION t_bigger EXPRESSION	
 							{if ($1 > $3) {
-								printf("IsBigger");
+								printf("IsBigger\n");
 								$$ = 1;
 							}
 							else {
-								printf("IsNotBigger");
+								printf("IsNotBigger\n");
 								$$ = 0;
 							}}
 
-		|	EXPRESSION t_bigger_equ Expression	
+		|	EXPRESSION t_bigger_equ EXPRESSION	
 							{if ($1 >= $3) {
-								printf("IsBiggerEqu");
+								printf("IsBiggerEqu\n");
 								$$ = 1;
 							}
 							else {
-								printf("IsNotBiggerEqu");
+								printf("IsNotBiggerEqu\n");
 								$$ = 0;
 							}}
 		;
 						
 EXPRESSION	:	SIGN TERM t_plus MULTTERM
-	   					{if($1) {
-							$$ = (-1 * $2) + $4;
-							printf("%i + %i = %i", -1*$2, $4, $$);
-						}
-						else {
-							$$ = $2 + $4;
-							printf("%i + %i = %i", $2, $4, $$);
-						}}
+	   						{if($1) {
+								$$ = (-1 * $2) + $4;
+								printf("%i + %i = %i\n", -1*$2, $4, $$);
+							}
+							else {
+								$$ = $2 + $4;
+								printf("%i + %i = %i\n", $2, $4, $$);
+							}}
 
 		|	SIGN TERM t_minus MULTTERM
-						{if($1) {
-							$$ = (-1 * $2) - $4;
-							printf("%i - %i = %i", -1*$2, $4, $$);
-						}
-						else {
-							$$ = $2 - $4;	
-							printf("%i - %i = %i", $2, $4, $$);
-						}}
+							{if($1) {
+								$$ = (-1 * $2) - $4;
+								printf("%i - %i = %i\n", -1*$2, $4, $$);
+							}
+							else {
+								$$ = $2 - $4;	
+								printf("%i - %i = %i\n", $2, $4, $$);
+							}}
 		|	SIGN TERM
-						{if($1) {
-							$$ = -1 * $2;
-							printf("%i", $$);
-						}
-						else {
-							$$ = $2;	
-							printf("%i", $$);
-						}}
+							{if($1) {
+								$$ = -1 * $2;
+								printf("%i\n", $$);
+							}
+							else {
+								$$ = $2;	
+								printf("%i\n", $$);
+							}}
 		;
 
 SIGN		:	t_plus
       				{$$ = 0;
-				printf("+SIGN");}
+				printf("+SIGN\n");}
 		|	t_minus
 				{$$ = 1;
-				printf("-SIGN");}
+				printf("-SIGN\n");}
 		|	EPSILON
 				{$$ = 0;
-				printf("NOSIGN");}
+				printf("NOSIGN\n");}
 		;
 		
 MULTTERM	:
 		|	TERM t_plus MULTTERM
 						{$$ = $1 + $3;
-						printf("%i + %i = %i", $1, $3, $$);}
+						printf("%i + %i = %i\n", $1, $3, $$);}
 	 
 	 	|	TERM t_minus MULTTERM
 						{$$ = $1 - $3;
-						printf("%i - %i = %i", $1, $3, $$);}
+						printf("%i - %i = %i\n", $1, $3, $$);}
 		|	TERM
 		;
 
 TERM		:	FACTOR t_mult TERM
       						{$$ = $1 * $3;
-						printf("%i * %i = %i", $1, $3, $$);}
+						printf("%i * %i = %i\n", $1, $3, $$);}
 	
       		|	FACTOR t_div TERM
 						{$$ = $1 / $3;
-						printf("%i / %i = %i", $1, $3, $$);}
+						printf("%i / %i = %i\n", $1, $3, $$);}
 
 		|	FACTOR
 		;
 						
 FACTOR		:	t_ident
+									{printf("Identifikator\n");}
 		|	t_digit
+									{printf("Digit\n");}
 		|	t_bracket_open EXPRESSION t_bracket_close
-									{$$ = $1;}
+									{printf("Expression\n");
+									$$ = $2;}
 		;
 				
 EPSILON	:	;			
 
 %%
+int main() 
+{   
+	yyparse();
+  
+	return yylex(); 
+}	
 
 void yyerror(char *s) {
 	fprintf(stderr, "%s\n", s);
 }
 
-int main(void) {
-	yyparse();
-	return 0;
+int yywrap() { 
+	printf("Scannen beendet");
+	return 1; 
 }
+
+
