@@ -386,14 +386,14 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[80] =
     {   0,
-       31,   31,   36,   34,   33,   35,    8,   24,   29,   30,
-       21,   19,   17,   20,   18,   22,   31,   34,   16,   25,
-       23,   27,    7,   32,   32,   32,   32,   32,   32,   32,
-       32,   32,   32,   32,    0,   31,    5,   26,   28,   32,
-       32,   32,   32,   32,   14,   32,   11,   32,   32,   32,
-       32,   32,    0,    0,   32,   32,   32,   10,   15,   32,
-       32,    3,   32,    1,   32,    6,   32,   32,   12,   32,
-        9,    2,   32,   13,   32,   32,   32,    4,    0
+       30,   30,   36,   34,   33,   35,    7,    8,   17,   18,
+       15,   13,    3,   14,    1,   16,   31,   34,    4,    9,
+        2,   11,    6,   30,   30,   30,   30,   30,   30,   30,
+       30,   30,   30,   30,    0,   31,    5,   10,   12,   30,
+       30,   30,   30,   30,   28,   30,   25,   30,   30,   30,
+       30,   30,    0,    0,   30,   30,   30,   24,   29,   30,
+       30,   20,   30,   32,   30,   22,   30,   30,   26,   30,
+       23,   19,   30,   27,   30,   30,   30,   21,    0
     } ;
 
 static yyconst YY_CHAR yy_ec[256] =
@@ -806,25 +806,24 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-/* rule 1 can match eol */
 YY_RULE_SETUP
 #line 13 "pl0-scanner.l"
-{;}
+{return t_dot;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 14 "pl0-scanner.l"
-{return t_const;}
+{return t_equal;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 15 "pl0-scanner.l"
-{return t_var;}
+{return t_comma;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 16 "pl0-scanner.l"
-{return t_procedure;}
+{return t_semicolon;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
@@ -834,127 +833,127 @@ YY_RULE_SETUP
 case 6:
 YY_RULE_SETUP
 #line 18 "pl0-scanner.l"
-{return t_call;}
+{return t_read;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 19 "pl0-scanner.l"
-{return t_read;}
+{return t_write;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 20 "pl0-scanner.l"
-{return t_write;}
+{return t_unequal;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 21 "pl0-scanner.l"
-{return t_begin;}
+{return t_smaller;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 22 "pl0-scanner.l"
-{return t_end;}
+{return t_smaller_equ;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 23 "pl0-scanner.l"
-{return t_if;}
+{return t_bigger;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 24 "pl0-scanner.l"
-{return t_then;}
+{return t_bigger_equ;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 25 "pl0-scanner.l"
-{return t_while;}
+{return t_plus;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 26 "pl0-scanner.l"
-{return t_do;}
+{return t_minus;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 27 "pl0-scanner.l"
-{return t_odd;}
+{return t_mult;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 28 "pl0-scanner.l"
-{return t_semicolon;}
+{return t_div;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 29 "pl0-scanner.l"
-{return t_comma;}
+{return t_bracket_open;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 30 "pl0-scanner.l"
-{return t_dot;}
+{return t_bracket_close;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 31 "pl0-scanner.l"
-{return t_plus;}
+{return t_const;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 32 "pl0-scanner.l"
-{return t_minus;}
+{return t_var;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 33 "pl0-scanner.l"
-{return t_mult;}
+{return t_procedure;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 34 "pl0-scanner.l"
-{return t_div;}
+{return t_call;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 35 "pl0-scanner.l"
-{return t_equal;} 
+{return t_begin;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 36 "pl0-scanner.l"
-{return t_unequal;}
+{return t_end;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 37 "pl0-scanner.l"
-{return t_smaller;}
+{return t_if;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 38 "pl0-scanner.l"
-{return t_smaller_equ;}
+{return t_then;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 39 "pl0-scanner.l"
-{return t_bigger;}
+{return t_while;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 40 "pl0-scanner.l"
-{return t_bigger_equ;}
+{return t_do;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 41 "pl0-scanner.l"
-{return t_bracket_open;}
+{return t_odd;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 42 "pl0-scanner.l"
-{return t_bracket_close;}
+{/*yylval.string=strdup(yytext);*/ return t_ident;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
@@ -962,23 +961,24 @@ YY_RULE_SETUP
 {yylval = atoi(yytext); return t_digit;}
 	YY_BREAK
 case 32:
+/* rule 32 can match eol */
 YY_RULE_SETUP
 #line 44 "pl0-scanner.l"
-{/*yylval.string=strdup(yytext);*/ return t_ident;}
+;
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 45 "pl0-scanner.l"
+#line 46 "pl0-scanner.l"
 {;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 46 "pl0-scanner.l"
-{ yyerror("Nicht zulaessiger Token"); }
+#line 47 "pl0-scanner.l"
+{yyerror("Invalid token!");}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 47 "pl0-scanner.l"
+#line 48 "pl0-scanner.l"
 ECHO;
 	YY_BREAK
 #line 985 "lex.yy.c"
@@ -1982,7 +1982,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 47 "pl0-scanner.l"
+#line 48 "pl0-scanner.l"
 
 
 
