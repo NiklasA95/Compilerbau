@@ -974,7 +974,7 @@ YY_RULE_SETUP
 case 34:
 YY_RULE_SETUP
 #line 47 "pl0-scanner.l"
-{yyerror("Invalid token!");}
+{yyerror("Ungueltiges Zeichen!");}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP

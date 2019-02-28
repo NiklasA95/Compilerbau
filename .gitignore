@@ -1,0 +1,6 @@
+lex.yy.c
+pl0-parser.exe
+pl0-parser.tab.c
+pl0-parser.tab.h
+
+pl0-testscanner.l

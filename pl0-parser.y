@@ -65,7 +65,7 @@ PROCDECL        :   t_procedure t_ident t_semicolon BLOCK t_semicolon PROCDECL
                 |   EPSILON
                 ;
 
-STATEMENT           :   t_ident t_assign EXPRESSION
+STATEMENT       :   t_ident t_assign EXPRESSION
                     {$$ = $3;}
                 |   t_call t_ident
                 |   t_read t_ident

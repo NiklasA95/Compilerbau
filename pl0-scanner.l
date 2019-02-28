@@ -44,7 +44,7 @@ COMMENT [(][*]([^*]|[*]+[^*)])*[*]+[)]
 {COMMENT}	;
 
 [ \t\f\r]	{;}
-.		    {yyerror("Invalid token!");}
+.		    {yyerror("Ungueltiges Zeichen!");}
 %%     
 
 
