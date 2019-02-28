@@ -152,7 +152,7 @@ CONDITION       :   t_odd EXPRESSION
                 ;
 
 EXPRESSION      :   SIGN TERM t_plus MULTTERM
-                    {if($1) {
+                    {if ($1) {
                         $$ = (-1 * $2) + $4;
                         printf("%i + %i = %i\n", -1*$2, $4, $$);
                     }
@@ -162,7 +162,7 @@ EXPRESSION      :   SIGN TERM t_plus MULTTERM
                     }}
 
                 |   SIGN TERM t_minus MULTTERM
-                    {if($1) {
+                    {if ($1) {
                         $$ = (-1 * $2) - $4;
                         printf("%i - %i = %i\n", -1*$2, $4, $$);
                     }
@@ -171,7 +171,7 @@ EXPRESSION      :   SIGN TERM t_plus MULTTERM
                         printf("%i - %i = %i\n", $2, $4, $$);
                     }}
                 |   SIGN TERM
-                    {if($1) {
+                    {if ($1) {
                         $$ = -1 * $2;
                         printf("%i\n", $$);
                     }
