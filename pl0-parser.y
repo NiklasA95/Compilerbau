@@ -189,12 +189,12 @@ SIGN            :   t_plus
                     {$$ = 0; printf("NOSIGN\n");}
                 ;
 
-MULTTERM        :
-                |   TERM t_plus MULTTERM
+MULTTERM        :   TERM t_plus MULTTERM
                     {$$ = $1 + $3; printf("%i + %i = %i\n", $1, $3, $$);}
                 |   TERM t_minus MULTTERM
                     {$$ = $1 - $3; printf("%i - %i = %i\n", $1, $3, $$);}
                 |   TERM
+                |   EPSILON
                 ;
 
 TERM            :   FACTOR t_mult TERM

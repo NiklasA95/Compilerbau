@@ -1480,7 +1480,7 @@ yyreduce:
 
   case 30:
 #line 155 "pl0-parser.y" /* yacc.c:1646  */
-    {if((yyvsp[-3])) {
+    {if ((yyvsp[-3])) {
                         (yyval) = (-1 * (yyvsp[-2])) + (yyvsp[0]);
                         printf("%i + %i = %i\n", -1*(yyvsp[-2]), (yyvsp[0]), (yyval));
                     }
@@ -1493,7 +1493,7 @@ yyreduce:
 
   case 31:
 #line 165 "pl0-parser.y" /* yacc.c:1646  */
-    {if((yyvsp[-3])) {
+    {if ((yyvsp[-3])) {
                         (yyval) = (-1 * (yyvsp[-2])) - (yyvsp[0]);
                         printf("%i - %i = %i\n", -1*(yyvsp[-2]), (yyvsp[0]), (yyval));
                     }
@@ -1506,7 +1506,7 @@ yyreduce:
 
   case 32:
 #line 174 "pl0-parser.y" /* yacc.c:1646  */
-    {if((yyvsp[-1])) {
+    {if ((yyvsp[-1])) {
                         (yyval) = -1 * (yyvsp[0]);
                         printf("%i\n", (yyval));
                     }
