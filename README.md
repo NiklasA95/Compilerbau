@@ -11,6 +11,17 @@ Repository for the "Compilerbau" lecture of Prof. Winfried Bantel
 ## Changelog
 All notable changes to this project will be documented in this file.
 
+### [0.8.0] - 2918-02-28
+#### Added
+- the symbol table methods, that should be called, are printed
+
+#### Removed
+- other outputs
+- invalid example programs
+
+#### Fixed
+- before, something like `x := 1 +` was valid
+
 ### [0.7.1] - 2019-02-28
 #### Added
 - more examples
